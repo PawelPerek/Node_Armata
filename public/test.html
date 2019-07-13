@@ -1,0 +1,25 @@
+<script src="./libs/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+<script>
+    $(() => {
+        let client = io();
+    
+        client.on("onconnect", data => {
+            alert(data.clientName)
+        })
+
+        client.on("mouseposition", data => {
+            $("p").text(data.posX + " - " + data.posY);
+            //client.broadcast.emit("mouseposition", { posX: data.posX, posY: data.posY });
+        })
+        $(document).on("mousemove", function (e) {
+                client.emit("mouseposition", {
+                    posX: e.clientX,
+                    posY: e.clientY
+                })
+            })
+    })
+
+</script>
+
+<p></p>

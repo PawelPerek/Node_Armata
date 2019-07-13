@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #root {
+            width: 100vw;
+            height: 100vh;
+        }
+        body {
+            overflow: hidden
+        }
+    </style>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    <script src="./libs/three.js"></script>
+    <script src="./libs/jquery.js"></script>
+    <script src="./libs/OrbitControls.js"></script>
+    <script src="./js/Net.js"></script>
+    <script src="./js/Armata.js"></script>
+    <script src="./js/Kula.js"></script>
+    <script src="./js/Wall.js"></script>
+    <script src="./js/Main.js"></script>
+    <script>
+        const v = 192;
+        const g = 9.81;
+        let game;
+        let client = io();
+        let net = null;
+        let c;
+        $(() => {
+            client.on("onconnect", data => {
+                game = new Main(data.first, data.numberOfPlayers);                            
+                net = new Net(client);
+            })
+        })
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+    <nav>
+        <input type="button" id="shot" value="Pal">
+        <input type="button" id="load" value="Ładuj">
+    </nav>
+</body>
+</html>
